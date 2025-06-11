@@ -1,6 +1,6 @@
 'use client';
 
-import { signIn } from '@/app/auth/actions';
+import { signUp } from '@/app/auth/actions';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
@@ -10,44 +10,47 @@ import Link from 'next/link';
 import { useFormState, useFormStatus } from 'react-dom';
 import { useEffect } from 'react';
 import { useToast } from '@/hooks/use-toast';
+import { useRouter } from 'next/navigation';
+
 
 export const metadata = {
-  title: 'Sign In - Magari 360',
-  description: 'Access your Magari 360 account.',
+  title: 'Sign Up - Magari 360',
+  description: 'Create your Magari 360 account.',
 };
 
 function SubmitButton() {
   const { pending } = useFormStatus();
   return (
     <Button className="w-full" type="submit" disabled={pending}>
-      {pending ? 'Signing In...' : 'Sign In'}
+      {pending ? 'Signing Up...' : 'Sign Up'}
     </Button>
   );
 }
 
-export default function SignInPage({ searchParams }: { searchParams: { message?: string; error?: string } }) {
-  const [state, formAction] = useFormState(signIn, undefined);
+export default function SignUpPage() {
+  const [state, formAction] = useFormState(signUp, undefined);
   const { toast } = useToast();
+  const router = useRouter();
 
   useEffect(() => {
-    if (searchParams.message) {
-      toast({ title: 'Info', description: searchParams.message });
-    }
-    if (searchParams.error) {
-      toast({ title: 'Error', description: searchParams.error, variant: 'destructive' });
-    }
     if (state?.error) {
-      toast({ title: 'Sign In Failed', description: state.error, variant: 'destructive' });
+      toast({ title: 'Sign Up Failed', description: state.error, variant: 'destructive' });
     }
-  }, [searchParams, state, toast]);
+    if (state?.message && !state.error) {
+      toast({ title: 'Sign Up Successful', description: state.message });
+       if (!state.message.includes('check your email')) { // Redirect if not waiting for email confirmation
+        router.push('/');
+      }
+    }
+  }, [state, toast, router]);
 
   return (
     <div className="flex items-center justify-center min-h-[70vh] py-12">
       <Card className="w-full max-w-md">
         <form action={formAction}>
           <CardHeader className="text-center">
-            <CardTitle className="text-2xl font-bold">Sign In to Magari 360</CardTitle>
-            <CardDescription>Enter your credentials to access your account.</CardDescription>
+            <CardTitle className="text-2xl font-bold">Create an Account</CardTitle>
+            <CardDescription>Join Magari 360 to start buying or selling.</CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
             <div className="space-y-2">
@@ -56,7 +59,7 @@ export default function SignInPage({ searchParams }: { searchParams: { message?:
             </div>
             <div className="space-y-2">
               <Label htmlFor="password">Password</Label>
-              <Input id="password" name="password" type="password" placeholder="••••••••" required />
+              <Input id="password" name="password" type="password" placeholder="•••••••• (min. 6 characters)" required />
             </div>
             <SubmitButton />
             {state?.error && (
@@ -64,23 +67,18 @@ export default function SignInPage({ searchParams }: { searchParams: { message?:
                 {state.error}
               </TypographyP>
             )}
-             {searchParams.message && (
+            {state?.message && !state.error && (
               <TypographyP className="text-xs text-center text-green-600 pt-2">
-                {searchParams.message}
+                {state.message}
               </TypographyP>
             )}
           </CardContent>
         </form>
         <CardFooter className="flex flex-col items-center space-y-2">
           <TypographyP className="text-sm">
-            Don't have an account?{' '}
-            <Link href="/auth/signup" className="font-medium text-primary hover:underline">
-              Sign Up
-            </Link>
-          </TypographyP>
-          <TypographyP className="text-sm">
-            <Link href="/auth/forgot-password" className="font-medium text-xs text-muted-foreground hover:text-primary hover:underline">
-              Forgot Password? (Coming Soon)
+            Already have an account?{' '}
+            <Link href="/auth/signin" className="font-medium text-primary hover:underline">
+              Sign In
             </Link>
           </TypographyP>
         </CardFooter>
