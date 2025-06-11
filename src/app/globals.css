@@ -3,37 +3,37 @@
 @tailwind utilities;
 
 body {
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: 'Inter', sans-serif; /* Changed to Inter as per PRD body font */
 }
 
 @layer base {
   :root {
-    --background: 220 16% 96%; /* Cool Light Gray: #F3F4F6 */
-    --foreground: 222 47% 11%; /* Rich Charcoal Black: #111827 */
+    --background: 0 0% 100%; /* White */
+    --foreground: 222 47% 11%; /* Rich Charcoal Black */
 
-    --card: 220 16% 97%; /* Slightly off from background for depth */
+    --card: 0 0% 98%; /* Slightly off-white */
     --card-foreground: 222 47% 11%;
 
-    --popover: 220 16% 97%;
+    --popover: 0 0% 98%; /* Slightly off-white */
     --popover-foreground: 222 47% 11%;
 
     --primary: 217 91% 60%; /* Saturated Blue: #3B82F6 */
     --primary-foreground: 0 0% 100%; /* White */
 
-    --secondary: 262 90% 67%; /* Vivid Violet: #8B5CF6 */
-    --secondary-foreground: 0 0% 100%; /* White */
+    --secondary: 220 14% 80%; /* Light Gray */
+    --secondary-foreground: 222 47% 11%; /* Dark text on light gray */
 
-    --muted: 215 10% 90%; /* Adjusted for better visibility on light bg */
-    --muted-foreground: 215 9% 55%; /* Muted Gray: #9CA3AF adjusted */
+    --muted: 220 15% 92%; /* Very light gray */
+    --muted-foreground: 215 20% 55%; /* Medium gray */
 
-    --accent: 217 91% 60%; /* Same as primary for default accent */
-    --accent-foreground: 0 0% 100%;
+    --accent: 217 91% 60%; /* Saturated Blue */
+    --accent-foreground: 0 0% 100%; /* White */
 
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 0 0% 98%;
 
-    --border: 210 14% 86%; /* Subtle Gray: #D1D5DB */
-    --input: 210 14% 89%; /* Slightly lighter than border for input fields */
+    --border: 220 13% 90%; /* Subtle Gray */
+    --input: 0 0% 96%; /* Lighter than card for input fields */
     --ring: 217 91% 60%; /* Primary accent for focus rings */
 
     --chart-1: 12 76% 61%;
@@ -43,7 +43,7 @@ body {
     --chart-5: 27 87% 67%;
     --radius: 0.5rem;
 
-    /* Sidebar colors - keeping defaults as sidebar is not a primary feature requested */
+    /* Sidebar colors - keeping defaults as sidebar is not a primary feature requested for theme change */
     --sidebar-background: 0 0% 98%;
     --sidebar-foreground: 240 5.3% 26.1%;
     --sidebar-primary: 240 5.9% 10%;
@@ -55,33 +55,33 @@ body {
   }
 
   .dark {
-    --background: 222 47% 11%; /* Rich Charcoal Black: #111827 */
-    --foreground: 0 0% 100%; /* White */
+    --background: 222 47% 8%; /* Very Dark Charcoal - near black */
+    --foreground: 0 0% 95%; /* Off-white */
 
-    --card: 222 47% 15%; /* Slightly lighter than dark background */
-    --card-foreground: 0 0% 100%;
+    --card: 222 47% 12%; /* Slightly lighter than dark background */
+    --card-foreground: 0 0% 95%;
 
-    --popover: 222 47% 15%;
-    --popover-foreground: 0 0% 100%;
+    --popover: 222 47% 12%;
+    --popover-foreground: 0 0% 95%;
 
     --primary: 217 91% 60%; /* Saturated Blue: #3B82F6 */
     --primary-foreground: 0 0% 100%; /* White */
 
-    --secondary: 262 90% 67%; /* Vivid Violet: #8B5CF6 */
-    --secondary-foreground: 0 0% 100%; /* White */
+    --secondary: 220 15% 25%; /* Dark Gray */
+    --secondary-foreground: 0 0% 95%; /* Light text on dark gray */
     
-    --muted: 222 47% 20%;
-    --muted-foreground: 215 9% 65%; /* Muted Gray: #9CA3AF */
+    --muted: 222 47% 18%; /* Darker gray */
+    --muted-foreground: 215 20% 70%; /* Medium-light gray */
 
-    --accent: 217 91% 60%;
-    --accent-foreground: 0 0% 100%;
+    --accent: 217 91% 60%; /* Saturated Blue */
+    --accent-foreground: 0 0% 100%; /* White */
 
-    --destructive: 0 62.8% 30.6%;
+    --destructive: 0 72.2% 50.6%; /* Darker Red for dark mode */
     --destructive-foreground: 0 0% 98%;
 
-    --border: 222 47% 25%; /* Darker Subtle Gray for borders */
-    --input: 222 47% 22%; /* Darker input background */
-    --ring: 217 91% 60%;
+    --border: 222 47% 20%; /* Darker Subtle Gray for borders */
+    --input: 222 47% 16%; /* Darker input background */
+    --ring: 217 91% 60%; /* Primary accent */
 
     --chart-1: 220 70% 50%;
     --chart-2: 160 60% 45%;
@@ -107,5 +107,6 @@ body {
   }
   body {
     @apply bg-background text-foreground;
+    font-feature-settings: "rlig" 1, "calt" 1; /* Enables common ligatures and contextual alternates */
   }
 }
