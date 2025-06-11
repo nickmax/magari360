@@ -13,11 +13,7 @@ import { useEffect } from 'react';
 import { useToast } from '@/hooks/use-toast';
 import { useRouter } from 'next/navigation';
 
-
-export const metadata = {
-  title: 'Sign Up - Rivent', // Updated title
-  description: 'Create your Rivent account.', // Updated description
-};
+// Removed metadata export
 
 function SubmitButton() {
   const { pending } = useFormStatus();

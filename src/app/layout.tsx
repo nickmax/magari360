@@ -5,17 +5,18 @@ import './globals.css';
 import { Toaster as SonnerToaster } from '@/components/ui/sonner';
 import { Toaster as RadixToaster } from "@/components/ui/toaster";
 import { ThemeToggleButton } from '@/components/theme-toggle-button';
-import { CircleDot, Search, Tag, UserCircle, LogIn, LogOut, LayoutDashboard, Newspaper, MessageSquare, AlignJustify, XIcon, Fuel } from 'lucide-react'; // Changed CarIcon to CircleDot
+import { CircleDot, Search, Tag, UserCircle, LogIn, LogOut, LayoutDashboard, Newspaper, MessageSquare, AlignJustify, XIcon, Fuel } from 'lucide-react';
 import { createClient } from '@/lib/supabase/server';
 import { signOut } from '@/app/auth/actions';
 import { Button } from '@/components/ui/button';
 import { Sheet, SheetContent, SheetTrigger, SheetClose } from '@/components/ui/sheet';
 import { cn } from '@/lib/utils';
+import React from 'react';
 
 
 export const metadata: Metadata = {
-  title: 'Rivent - Your Car Rental Platform', // Updated title
-  description: 'Discover, book, and manage car rentals with Rivent.', // Updated description
+  title: 'Rivent - Your Car Rental Platform',
+  description: 'Discover, book, and manage car rentals with Rivent.',
 };
 
 interface NavLinkProps {
@@ -26,22 +27,19 @@ interface NavLinkProps {
   onClick?: () => void;
 }
 
-const NavLink: React.FC<NavLinkProps> = ({ href, children, className = "", isMobile = false, onClick }) => {
-  const baseClasses = "text-sm font-medium text-muted-foreground transition-colors hover:text-primary flex items-center gap-2";
-  const mobileClasses = isMobile ? "py-3 px-4 text-base w-full justify-start hover:bg-muted/50 rounded-md" : "";
+const NavLink = React.forwardRef<HTMLAnchorElement, NavLinkProps>(
+  ({ href, children, className = "", isMobile = false, onClick }, ref) => {
+    const baseClasses = "text-sm font-medium text-muted-foreground transition-colors hover:text-primary flex items-center gap-2";
+    const mobileClasses = isMobile ? "py-3 px-4 text-base w-full justify-start hover:bg-muted/50 rounded-md" : "";
 
-  const linkContent = (
-    <Link href={href} className={cn(baseClasses, mobileClasses, className)} onClick={onClick}>
-      {children}
-    </Link>
-  );
-
-  return isMobile && onClick ? (
-    <SheetClose asChild>
-      {linkContent}
-    </SheetClose>
-  ) : linkContent;
-};
+    return (
+      <Link href={href} className={cn(baseClasses, mobileClasses, className)} onClick={onClick} ref={ref}>
+        {children}
+      </Link>
+    );
+  }
+);
+NavLink.displayName = 'NavLink';
 
 
 async function AppHeader() {
@@ -50,8 +48,8 @@ async function AppHeader() {
 
   const navItems = [
     { href: "/inventory", label: "Inventory", icon: <Search className="h-4 w-4" />, alwaysShow: true },
-    { href: "/sell-your-car", label: "List Your Car", icon: <Tag className="h-4 w-4" /> }, // Changed label for Rivent context
-    { href: "/dealer-directory", label: "Partners", icon: <UserCircle className="h-4 w-4" /> }, // Changed label
+    { href: "/sell-your-car", label: "List Your Car", icon: <Tag className="h-4 w-4" /> },
+    { href: "/dealer-directory", label: "Partners", icon: <UserCircle className="h-4 w-4" /> },
     { href: "/blog", label: "Blog", icon: <Newspaper className="h-4 w-4" /> },
     { href: "/contact", label: "Contact Us", icon: <MessageSquare className="h-4 w-4" /> },
   ];
@@ -61,7 +59,7 @@ async function AppHeader() {
       <div className="container flex h-16 items-center">
         <Link href="/" className="mr-4 sm:mr-6 flex items-center space-x-2">
           <CircleDot className="h-6 w-6 sm:h-7 sm:w-7 text-primary" />
-          <span className="font-bold text-lg sm:text-xl font-headline text-foreground"> {/* Ensure foreground is used for title */}
+          <span className="font-bold text-lg sm:text-xl font-headline text-foreground">
             Rivent
           </span>
         </Link>
@@ -123,28 +121,34 @@ async function AppHeader() {
                   </div>
                 <nav className="flex flex-col space-y-2">
                   {navItems.map(item => (
-                     <NavLink key={item.href} href={item.href} isMobile={true}>
-                        {item.icon} {item.label}
-                      </NavLink>
+                     <SheetClose asChild key={item.href}>
+                        <NavLink href={item.href} isMobile={true}>
+                            {item.icon} {item.label}
+                        </NavLink>
+                      </SheetClose>
                   ))}
                   <hr className="my-3 border-border"/>
                   {user ? (
                     <>
-                     <NavLink href="/dashboard" isMobile={true}>
-                        <LayoutDashboard className="h-4 w-4" /> Dashboard
-                      </NavLink>
-                       <SheetClose asChild>
-                        <form action={signOut} className="w-full">
-                           <Button type="submit" variant="ghost" className="text-sm font-medium text-muted-foreground hover:text-primary flex items-center gap-2 py-3 px-4 text-base w-full justify-start hover:bg-muted/50 rounded-md">
-                            <LogOut className="h-4 w-4" /> Sign Out
-                          </Button>
-                        </form>
+                     <SheetClose asChild>
+                        <NavLink href="/dashboard" isMobile={true}>
+                            <LayoutDashboard className="h-4 w-4" /> Dashboard
+                        </NavLink>
                       </SheetClose>
+                       <form action={signOut} className="w-full">
+                           <SheetClose asChild>
+                                <Button type="submit" variant="ghost" className="text-sm font-medium text-muted-foreground hover:text-primary flex items-center gap-2 py-3 px-4 text-base w-full justify-start hover:bg-muted/50 rounded-md">
+                                <LogOut className="h-4 w-4" /> Sign Out
+                                </Button>
+                            </SheetClose>
+                        </form>
                     </>
                   ) : (
-                    <NavLink href="/auth/signin" isMobile={true} className="text-primary">
-                      <LogIn className="h-4 w-4" /> Sign In
-                    </NavLink>
+                    <SheetClose asChild>
+                        <NavLink href="/auth/signin" isMobile={true} className="text-primary">
+                        <LogIn className="h-4 w-4" /> Sign In
+                        </NavLink>
+                    </SheetClose>
                   )}
                 </nav>
               </SheetContent>

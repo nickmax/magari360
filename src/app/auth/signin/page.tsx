@@ -12,10 +12,7 @@ import { useFormState, useFormStatus } from 'react-dom';
 import { useEffect } from 'react';
 import { useToast } from '@/hooks/use-toast';
 
-export const metadata = {
-  title: 'Sign In - Rivent', // Updated title
-  description: 'Access your Rivent account.', // Updated description
-};
+// Removed metadata export
 
 function SubmitButton() {
   const { pending } = useFormStatus();
