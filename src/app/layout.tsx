@@ -5,7 +5,7 @@ import './globals.css';
 import { Toaster as SonnerToaster } from '@/components/ui/sonner';
 import { Toaster as RadixToaster } from "@/components/ui/toaster";
 import { ThemeToggleButton } from '@/components/theme-toggle-button';
-import { CircleDot, Search, Tag, UserCircle, LogIn, LogOut, LayoutDashboard, Newspaper, MessageSquare, AlignJustify, XIcon } from 'lucide-react'; // Removed Fuel as it's not used here
+import { CircleDot, Search, Tag, UserCircle, LogIn, LogOut, LayoutDashboard, Newspaper, MessageSquare, AlignJustify, X as XIcon } from 'lucide-react';
 import { createClient } from '@/lib/supabase/server';
 import { signOut } from '@/app/auth/actions';
 import { Button } from '@/components/ui/button';
@@ -23,13 +23,11 @@ interface NavLinkProps {
   href: string;
   children: React.ReactNode;
   className?: string;
-  isMobile?: boolean;
-  onClick?: () => void; // Added onClick to NavLinkProps
+  onClick?: () => void;
 }
 
 const NavLink = React.forwardRef<HTMLAnchorElement, NavLinkProps>(
-  ({ href, children, className, onClick }, ref) => { // Removed isMobile as className now dictates mobile styling
-    // Base classes are applied by default, mobile-specific classes are passed via className prop
+  ({ href, children, className, onClick }, ref) => {
     return (
       <Link href={href} className={className} onClick={onClick} ref={ref}>
         <span className="flex items-center gap-2">
@@ -72,7 +70,7 @@ async function AppHeader() {
         <nav className="hidden md:flex flex-1 items-center space-x-3 lg:space-x-5">
           {navItems.map(item => (
             <NavLink key={item.href} href={item.href} className={cn(baseNavClasses, item.className)}>
-              {item.icon} {item.label}
+               {item.icon} {item.label}
             </NavLink>
           ))}
         </nav>
@@ -110,7 +108,7 @@ async function AppHeader() {
             <Sheet>
               <SheetTrigger asChild>
                 <Button variant="ghost" size="icon">
-                  <span className="flex items-center justify-center"> {/* Ensure single child for Button */}
+                  <span className="flex items-center justify-center">
                     <AlignJustify className="h-5 w-5" />
                     <span className="sr-only">Open menu</span>
                   </span>
@@ -124,7 +122,7 @@ async function AppHeader() {
                     </Link>
                     <SheetClose asChild>
                       <Button variant="ghost" size="icon">
-                         <span className="flex items-center justify-center"> {/* Ensure single child for Button */}
+                         <span className="flex items-center justify-center">
                             <XIcon className="h-5 w-5" />
                             <span className="sr-only">Close menu</span>
                          </span>
@@ -134,18 +132,22 @@ async function AppHeader() {
                 <nav className="flex flex-col space-y-2">
                   {navItems.map(item => (
                      <SheetClose asChild key={item.href + '-nav-item'}>
-                        <NavLink href={item.href} className={cn(baseNavClasses, mobileLinkClasses)}>
-                            {item.icon} {item.label}
-                        </NavLink>
+                        <Link href={item.href} className={cn(baseNavClasses, mobileLinkClasses)}>
+                            <span className="flex items-center gap-2">
+                                {item.icon} {item.label}
+                            </span>
+                        </Link>
                       </SheetClose>
                   ))}
                   <hr className="my-3 border-border"/>
                   {user ? (
                     <>
                      <SheetClose asChild key="dashboard-mobile-link">
-                        <NavLink href="/dashboard" className={cn(baseNavClasses, mobileLinkClasses)}>
-                            <LayoutDashboard className="h-4 w-4" /> Dashboard
-                        </NavLink>
+                        <Link href="/dashboard" className={cn(baseNavClasses, mobileLinkClasses)}>
+                            <span className="flex items-center gap-2">
+                                <LayoutDashboard className="h-4 w-4" /> Dashboard
+                            </span>
+                        </Link>
                       </SheetClose>
                        <form action={signOut} className="w-full">
                            <SheetClose asChild>
@@ -159,9 +161,11 @@ async function AppHeader() {
                     </>
                   ) : (
                     <SheetClose asChild key="signin-mobile-link">
-                        <NavLink href="/auth/signin" className={cn(baseNavClasses, mobileLinkClasses, "text-primary")}>
-                          <LogIn className="h-4 w-4" /> Sign In
-                        </NavLink>
+                        <Link href="/auth/signin" className={cn(baseNavClasses, mobileLinkClasses, "text-primary")}>
+                          <span className="flex items-center gap-2">
+                            <LogIn className="h-4 w-4" /> Sign In
+                          </span>
+                        </Link>
                     </SheetClose>
                   )}
                 </nav>
