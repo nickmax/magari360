@@ -1,87 +1,93 @@
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 body {
-  font-family: 'Inter', sans-serif; /* Changed to Inter as per PRD body font */
+  font-family: 'Inter', sans-serif;
 }
 
 @layer base {
   :root {
-    --background: 0 0% 100%; /* White */
-    --foreground: 222 47% 11%; /* Rich Charcoal Black */
+    /* Light Mode - Minimalist, High-Contrast, Blue-Accented */
+    --background: 0 0% 100%; /* #FFFFFF Pure white */
+    --foreground: 215 14% 31%; /* #4B5563 Cool gray (Body text) */
 
-    --card: 0 0% 98%; /* Slightly off-white */
-    --card-foreground: 222 47% 11%;
+    --card: 0 0% 100%; /* #FFFFFF White */
+    --card-foreground: 215 14% 31%; /* #4B5563 Cool gray (inherited) */
 
-    --popover: 0 0% 98%; /* Slightly off-white */
-    --popover-foreground: 222 47% 11%;
+    --popover: 0 0% 100%; /* #FFFFFF White */
+    --popover-foreground: 215 14% 31%; /* #4B5563 Cool gray (inherited) */
 
-    --primary: 217 91% 60%; /* Saturated Blue: #3B82F6 */
-    --primary-foreground: 0 0% 100%; /* White */
+    --primary: 217 91% 60%; /* #3B82F6 Saturated Blue */
+    --primary-foreground: 0 0% 100%; /* #FFFFFF White */
 
-    --secondary: 220 14% 80%; /* Light Gray */
-    --secondary-foreground: 222 47% 11%; /* Dark text on light gray */
+    --secondary: 210 40% 98%; /* #F9FAFB Light Gray */
+    --secondary-foreground: 222 47% 11%; /* #111827 Charcoal black */
 
-    --muted: 220 15% 92%; /* Very light gray */
-    --muted-foreground: 215 20% 55%; /* Medium gray */
+    --muted: 210 40% 98%; /* #F9FAFB Light Gray */
+    --muted-foreground: 215 9% 65%; /* #9CA3AF Soft gray */
 
-    --accent: 217 91% 60%; /* Saturated Blue */
-    --accent-foreground: 0 0% 100%; /* White */
+    --accent: 217 91% 60%; /* #3B82F6 Saturated Blue */
+    --accent-foreground: 0 0% 100%; /* #FFFFFF White */
 
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 0 0% 98%;
+    --destructive: 0 84.2% 60.2%; /* Default Red */
+    --destructive-foreground: 0 0% 98%; /* Default Light text for destructive */
 
-    --border: 220 13% 90%; /* Subtle Gray */
-    --input: 0 0% 96%; /* Lighter than card for input fields */
-    --ring: 217 91% 60%; /* Primary accent for focus rings */
+    --border: 220 14% 90%; /* #E5E7EB Subtle Gray */
+    --input: 0 0% 100%; /* #FFFFFF White (background for input fields) */
+    --ring: 217 91% 60%; /* #3B82F6 Saturated Blue (focus rings) */
+
+    --radius: 1rem; /* 16px rounded corners */
 
     --chart-1: 12 76% 61%;
     --chart-2: 173 58% 39%;
     --chart-3: 197 37% 24%;
     --chart-4: 43 74% 66%;
     --chart-5: 27 87% 67%;
-    --radius: 0.5rem;
 
-    /* Sidebar colors - keeping defaults as sidebar is not a primary feature requested for theme change */
-    --sidebar-background: 0 0% 98%;
-    --sidebar-foreground: 240 5.3% 26.1%;
-    --sidebar-primary: 240 5.9% 10%;
-    --sidebar-primary-foreground: 0 0% 98%;
-    --sidebar-accent: 240 4.8% 95.9%;
-    --sidebar-accent-foreground: 240 5.9% 10%;
-    --sidebar-border: 220 13% 91%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    /* Sidebar Light Mode */
+    --sidebar-background: 210 40% 98%; /* #F9FAFB Light Gray */
+    --sidebar-foreground: 222 47% 11%; /* #111827 Charcoal black */
+    --sidebar-primary: 217 91% 60%; /* #3B82F6 Saturated Blue */
+    --sidebar-primary-foreground: 0 0% 100%; /* #FFFFFF White */
+    --sidebar-accent: 217 91% 55%; /* Slightly adjusted blue for accent hover */
+    --sidebar-accent-foreground: 0 0% 100%; /* #FFFFFF White */
+    --sidebar-border: 220 14% 90%; /* #E5E7EB Subtle Gray */
+    --sidebar-ring: 217 91% 60%; /* #3B82F6 Saturated Blue */
   }
 
   .dark {
-    --background: 222 47% 8%; /* Very Dark Charcoal - near black */
-    --foreground: 0 0% 95%; /* Off-white */
+    /* Dark Mode - Minimalist, High-Contrast, Blue-Accented */
+    --background: 222 47% 11%; /* #111827 Off-black */
+    --foreground: 220 13% 85%; /* #D1D5DB Gray-100 (Body text) */
 
-    --card: 222 47% 12%; /* Slightly lighter than dark background */
-    --card-foreground: 0 0% 95%;
+    --card: 215 28% 17%; /* #1F2937 Dark slate */
+    --card-foreground: 220 13% 85%; /* #D1D5DB Gray-100 (inherited) */
 
-    --popover: 222 47% 12%;
-    --popover-foreground: 0 0% 95%;
+    --popover: 215 28% 17%; /* #1F2937 Dark slate */
+    --popover-foreground: 220 13% 85%; /* #D1D5DB Gray-100 (inherited) */
 
-    --primary: 217 91% 60%; /* Saturated Blue: #3B82F6 */
-    --primary-foreground: 0 0% 100%; /* White */
+    --primary: 217 91% 60%; /* #3B82F6 Saturated Blue */
+    --primary-foreground: 0 0% 100%; /* #FFFFFF White */
 
-    --secondary: 220 15% 25%; /* Dark Gray */
-    --secondary-foreground: 0 0% 95%; /* Light text on dark gray */
+    --secondary: 215 19% 25%; /* #374151 Darker Slate */
+    --secondary-foreground: 220 13% 85%; /* #D1D5DB Gray-100 */
     
-    --muted: 222 47% 18%; /* Darker gray */
-    --muted-foreground: 215 20% 70%; /* Medium-light gray */
+    --muted: 215 28% 17%; /* #1F2937 Dark slate */
+    --muted-foreground: 214 9% 48%; /* #6B7280 Slate gray */
 
-    --accent: 217 91% 60%; /* Saturated Blue */
-    --accent-foreground: 0 0% 100%; /* White */
+    --accent: 217 91% 60%; /* #3B82F6 Saturated Blue */
+    --accent-foreground: 0 0% 100%; /* #FFFFFF White */
 
     --destructive: 0 72.2% 50.6%; /* Darker Red for dark mode */
     --destructive-foreground: 0 0% 98%;
 
-    --border: 222 47% 20%; /* Darker Subtle Gray for borders */
-    --input: 222 47% 16%; /* Darker input background */
-    --ring: 217 91% 60%; /* Primary accent */
+    --border: 215 19% 25%; /* #374151 Slate gray (for borders) */
+    --input: 215 28% 17%; /* #1F2937 Dark slate (background for input fields) */
+    --ring: 217 91% 60%; /* #3B82F6 Saturated Blue */
+
+    /* --radius is already defined in :root */
 
     --chart-1: 220 70% 50%;
     --chart-2: 160 60% 45%;
@@ -89,15 +95,15 @@ body {
     --chart-4: 280 65% 60%;
     --chart-5: 340 75% 55%;
 
-    /* Sidebar dark colors - keeping defaults */
-    --sidebar-background: 240 5.9% 10%;
-    --sidebar-foreground: 240 4.8% 95.9%;
-    --sidebar-primary: 224.3 76.3% 48%;
-    --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 240 3.7% 15.9%;
-    --sidebar-accent-foreground: 240 4.8% 95.9%;
-    --sidebar-border: 240 3.7% 15.9%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    /* Sidebar Dark Mode */
+    --sidebar-background: 215 28% 17%; /* #1F2937 Dark slate */
+    --sidebar-foreground: 220 13% 85%; /* #D1D5DB Gray-100 */
+    --sidebar-primary: 217 91% 60%; /* #3B82F6 Saturated Blue */
+    --sidebar-primary-foreground: 0 0% 100%; /* #FFFFFF White */
+    --sidebar-accent: 217 91% 65%; /* Slightly lighter blue for accent hover */
+    --sidebar-accent-foreground: 0 0% 100%; /* #FFFFFF White */
+    --sidebar-border: 215 19% 25%; /* #374151 Slate gray */
+    --sidebar-ring: 217 91% 60%; /* #3B82F6 Saturated Blue */
   }
 }
 
@@ -107,6 +113,6 @@ body {
   }
   body {
     @apply bg-background text-foreground;
-    font-feature-settings: "rlig" 1, "calt" 1; /* Enables common ligatures and contextual alternates */
+    font-feature-settings: "rlig" 1, "calt" 1;
   }
 }

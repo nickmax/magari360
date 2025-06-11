@@ -66,4 +66,5 @@ export function VehicleCard({ vehicle }: VehicleCardProps) {
         </Button>
       </CardFooter>
     </Card>
-  
+  );
+}
