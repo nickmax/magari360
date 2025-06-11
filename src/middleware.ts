@@ -1,5 +1,6 @@
+
 import { type NextRequest, NextResponse } from 'next/server';
-import { createClient } from '@/lib/supabase/server';
+import { createServerClient, type CookieOptions } from '@supabase/ssr'; // Added createServerClient here
 
 export async function middleware(request: NextRequest) {
   const { supabase, response } = createClientMiddleware(request);

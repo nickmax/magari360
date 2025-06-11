@@ -1,5 +1,6 @@
+
 import { TypographyH1, TypographyP } from "@/components/ui/typography";
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from "@/components/ui/card";
 import Link from "next/link";
 
 export const metadata = {
