@@ -162,11 +162,11 @@ async function AppHeader() {
 
 function AppFooter() {
   return (
-    <footer className="border-t bg-black text-slate-400"> {/* Updated to dark footer */}
+    <footer className="border-t bg-black text-slate-400">
       <div className="container py-8 text-center text-xs sm:text-sm">
         <div className="flex flex-col items-center justify-center gap-2 mb-4">
            <CircleDot className="h-7 w-7 sm:h-8 sm:w-8 text-primary" />
-           <p className="font-bold text-md sm:text-lg font-headline text-white">Rivent</p> {/* Text to white */}
+           <p className="font-bold text-md sm:text-lg font-headline text-white">Rivent</p>
         </div>
         <div className="flex flex-wrap justify-center gap-x-3 sm:gap-x-4 gap-y-2 mb-4 text-xs sm:text-sm">
           <Link href="/inventory" className="hover:text-primary">Inventory</Link>
@@ -176,7 +176,7 @@ function AppFooter() {
            <Link href="/terms" className="hover:text-primary">Terms of Service (TBD)</Link>
         </div>
         <p className="text-xs">
-          &copy; {new Date().getFullYear()} Rivent. All rights reserved. Your trusted car rental platform. {/* Updated text */}
+          &copy; {new Date().getFullYear()} Rivent. All rights reserved. Your trusted car rental platform.
         </p>
       </div>
     </footer>
@@ -195,10 +195,10 @@ export default function RootLayout({
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
-        <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" /> {/* Added Plus Jakarta Sans for Rivent */}
+        <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
       </head>
-      <body className="font-body antialiased bg-background text-foreground"> {/* Ensured body text uses foreground */}
-        <div className="relative flex min-h-screen flex-col"> {/* Removed bg-background from here, apply to body */}
+      <body className="font-body antialiased bg-background text-foreground">
+        <div className="relative flex min-h-screen flex-col">
           <AppHeader />
           <main className="flex-1 container mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8">
             {children}
