@@ -5,7 +5,7 @@ import './globals.css';
 import { Toaster as SonnerToaster } from '@/components/ui/sonner';
 import { Toaster as RadixToaster } from "@/components/ui/toaster";
 import { ThemeToggleButton } from '@/components/theme-toggle-button';
-import { CircleDot, Search, Tag, UserCircle, LogIn, LogOut, LayoutDashboard, Newspaper, MessageSquare, AlignJustify, XIcon, Fuel } from 'lucide-react';
+import { CircleDot, Search, Tag, UserCircle, LogIn, LogOut, LayoutDashboard, Newspaper, MessageSquare, AlignJustify, XIcon } from 'lucide-react'; // Removed Fuel as it's not used here
 import { createClient } from '@/lib/supabase/server';
 import { signOut } from '@/app/auth/actions';
 import { Button } from '@/components/ui/button';
@@ -24,17 +24,17 @@ interface NavLinkProps {
   children: React.ReactNode;
   className?: string;
   isMobile?: boolean;
-  onClick?: () => void;
+  onClick?: () => void; // Added onClick to NavLinkProps
 }
 
 const NavLink = React.forwardRef<HTMLAnchorElement, NavLinkProps>(
-  ({ href, children, className = "", isMobile = false, onClick }, ref) => {
-    const baseClasses = "text-sm font-medium text-muted-foreground transition-colors hover:text-primary flex items-center gap-2";
-    const mobileClasses = isMobile ? "py-3 px-4 text-base w-full justify-start hover:bg-muted/50 rounded-md" : "";
-
+  ({ href, children, className, onClick }, ref) => { // Removed isMobile as className now dictates mobile styling
+    // Base classes are applied by default, mobile-specific classes are passed via className prop
     return (
-      <Link href={href} className={cn(baseClasses, mobileClasses, className)} onClick={onClick} ref={ref}>
-        {children}
+      <Link href={href} className={className} onClick={onClick} ref={ref}>
+        <span className="flex items-center gap-2">
+          {children}
+        </span>
       </Link>
     );
   }
@@ -47,12 +47,16 @@ async function AppHeader() {
   const { data: { user } } = await supabase.auth.getUser();
 
   const navItems = [
-    { href: "/inventory", label: "Inventory", icon: <Search className="h-4 w-4" />, alwaysShow: true },
-    { href: "/sell-your-car", label: "List Your Car", icon: <Tag className="h-4 w-4" /> },
-    { href: "/dealer-directory", label: "Partners", icon: <UserCircle className="h-4 w-4" /> },
-    { href: "/blog", label: "Blog", icon: <Newspaper className="h-4 w-4" /> },
-    { href: "/contact", label: "Contact Us", icon: <MessageSquare className="h-4 w-4" /> },
+    { href: "/inventory", label: "Inventory", icon: <Search className="h-4 w-4" />, alwaysShow: true, className: "" },
+    { href: "/sell-your-car", label: "List Your Car", icon: <Tag className="h-4 w-4" />, className: "hidden lg:flex" },
+    { href: "/dealer-directory", label: "Partners", icon: <UserCircle className="h-4 w-4" />, className: "hidden lg:flex" },
+    { href: "/blog", label: "Blog", icon: <Newspaper className="h-4 w-4" />, className: "hidden lg:flex" },
+    { href: "/contact", label: "Contact Us", icon: <MessageSquare className="h-4 w-4" />, className: "hidden lg:flex" },
   ];
+  
+  const baseNavClasses = "text-sm font-medium text-muted-foreground transition-colors hover:text-primary flex items-center gap-2";
+  const mobileLinkClasses = "py-3 px-4 text-base w-full justify-start hover:bg-muted/50 rounded-md";
+
 
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
@@ -67,7 +71,7 @@ async function AppHeader() {
         {/* Desktop Navigation */}
         <nav className="hidden md:flex flex-1 items-center space-x-3 lg:space-x-5">
           {navItems.map(item => (
-            <NavLink key={item.href} href={item.href} className={cn(!item.alwaysShow && "hidden lg:flex")}>
+            <NavLink key={item.href} href={item.href} className={cn(baseNavClasses, item.className)}>
               {item.icon} {item.label}
             </NavLink>
           ))}
@@ -106,8 +110,10 @@ async function AppHeader() {
             <Sheet>
               <SheetTrigger asChild>
                 <Button variant="ghost" size="icon">
-                  <AlignJustify className="h-5 w-5" />
-                  <span className="sr-only">Open menu</span>
+                  <span className="flex items-center justify-center"> {/* Ensure single child for Button */}
+                    <AlignJustify className="h-5 w-5" />
+                    <span className="sr-only">Open menu</span>
+                  </span>
                 </Button>
               </SheetTrigger>
               <SheetContent side="right" className="w-full max-w-xs sm:max-w-sm p-4 bg-background">
@@ -118,15 +124,17 @@ async function AppHeader() {
                     </Link>
                     <SheetClose asChild>
                       <Button variant="ghost" size="icon">
-                        <XIcon className="h-5 w-5" />
-                         <span className="sr-only">Close menu</span>
+                         <span className="flex items-center justify-center"> {/* Ensure single child for Button */}
+                            <XIcon className="h-5 w-5" />
+                            <span className="sr-only">Close menu</span>
+                         </span>
                       </Button>
                     </SheetClose>
                   </div>
                 <nav className="flex flex-col space-y-2">
                   {navItems.map(item => (
-                     <SheetClose asChild key={item.href}>
-                        <NavLink href={item.href} isMobile={true}>
+                     <SheetClose asChild key={item.href + '-nav-item'}>
+                        <NavLink href={item.href} className={cn(baseNavClasses, mobileLinkClasses)}>
                             {item.icon} {item.label}
                         </NavLink>
                       </SheetClose>
@@ -134,23 +142,25 @@ async function AppHeader() {
                   <hr className="my-3 border-border"/>
                   {user ? (
                     <>
-                     <SheetClose asChild>
-                        <NavLink href="/dashboard" isMobile={true}>
+                     <SheetClose asChild key="dashboard-mobile-link">
+                        <NavLink href="/dashboard" className={cn(baseNavClasses, mobileLinkClasses)}>
                             <LayoutDashboard className="h-4 w-4" /> Dashboard
                         </NavLink>
                       </SheetClose>
                        <form action={signOut} className="w-full">
                            <SheetClose asChild>
-                                <Button type="submit" variant="ghost" className="text-sm font-medium text-muted-foreground hover:text-primary flex items-center gap-2 py-3 px-4 text-base w-full justify-start hover:bg-muted/50 rounded-md">
-                                <LogOut className="h-4 w-4" /> Sign Out
+                                <Button type="submit" variant="ghost" className={cn(baseNavClasses, mobileLinkClasses, "text-muted-foreground hover:text-primary w-full justify-start")}>
+                                  <span className="flex items-center gap-2">
+                                    <LogOut className="h-4 w-4" /> Sign Out
+                                  </span>
                                 </Button>
                             </SheetClose>
                         </form>
                     </>
                   ) : (
-                    <SheetClose asChild>
-                        <NavLink href="/auth/signin" isMobile={true} className="text-primary">
-                        <LogIn className="h-4 w-4" /> Sign In
+                    <SheetClose asChild key="signin-mobile-link">
+                        <NavLink href="/auth/signin" className={cn(baseNavClasses, mobileLinkClasses, "text-primary")}>
+                          <LogIn className="h-4 w-4" /> Sign In
                         </NavLink>
                     </SheetClose>
                   )}
