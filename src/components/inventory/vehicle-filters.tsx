@@ -42,11 +42,11 @@ export function VehicleFilters({ filters, setFilters, allMakes, allModels, onRes
   ];
 
   // In a real app, models would be dynamically filtered based on selected make from a comprehensive list
-  const currentModels = filters.make ? allModels.filter(model => model.toLowerCase().startsWith(filters.make.toLowerCase().substring(0,2))) : allModels;
+  const currentModels = filters.make ? allModels.filter(model => model.toLowerCase().startsWith(filters.make.toLowerCase().substring(0,2)) || allModels.length < 20) : allModels;
 
 
   return (
-    <div className="mb-8 p-6 bg-card rounded-lg shadow-md">
+    <div className="mb-8 p-4 sm:p-6 bg-card rounded-lg shadow-md">
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4 items-end">
         <div className="xl:col-span-1">
           <label htmlFor="searchTerm" className="block text-sm font-medium text-muted-foreground mb-1">Keyword Search</label>
@@ -77,7 +77,7 @@ export function VehicleFilters({ filters, setFilters, allMakes, allModels, onRes
         </div>
         <div>
           <label htmlFor="model" className="block text-sm font-medium text-muted-foreground mb-1">Model</label>
-          <Select name="model" value={filters.model} onValueChange={handleSelectChange('model')} disabled={!filters.make && currentModels.length > 10}>
+          <Select name="model" value={filters.model} onValueChange={handleSelectChange('model')} disabled={!filters.make && currentModels.length > 10 && currentModels.length !== allModels.length}>
             <SelectTrigger>
               <SelectValue placeholder="Any Model" />
             </SelectTrigger>
@@ -90,10 +90,10 @@ export function VehicleFilters({ filters, setFilters, allMakes, allModels, onRes
         <div>
           <label htmlFor="priceRange" className="block text-sm font-medium text-muted-foreground mb-1">Price Range</label>
            <Select 
-            value={`${filters.minPrice}-${filters.maxPrice}`} 
+            value={filters.minPrice && filters.maxPrice ? `${filters.minPrice}-${filters.maxPrice}` : ""}
             onValueChange={(value) => {
               const [min, max] = value.split('-');
-              setFilters(prev => ({ ...prev, minPrice: min, maxPrice: max }));
+              setFilters(prev => ({ ...prev, minPrice: min || "", maxPrice: max || "" }));
             }}
           >
             <SelectTrigger>

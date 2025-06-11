@@ -1,3 +1,4 @@
+
 'use client';
 
 import { signIn } from '@/app/auth/actions';
@@ -42,8 +43,8 @@ export default function SignInPage({ searchParams }: { searchParams: { message?:
   }, [searchParams, state, toast]);
 
   return (
-    <div className="flex items-center justify-center min-h-[70vh] py-12">
-      <Card className="w-full max-w-md">
+    <div className="flex items-center justify-center min-h-[calc(100vh-10rem)] py-12 px-4">
+      <Card className="w-full max-w-md mx-auto">
         <form action={formAction}>
           <CardHeader className="text-center">
             <CardTitle className="text-2xl font-bold">Sign In to Magari 360</CardTitle>
@@ -64,14 +65,14 @@ export default function SignInPage({ searchParams }: { searchParams: { message?:
                 {state.error}
               </TypographyP>
             )}
-             {searchParams.message && (
+             {searchParams.message && !searchParams.error && (
               <TypographyP className="text-xs text-center text-green-600 pt-2">
                 {searchParams.message}
               </TypographyP>
             )}
           </CardContent>
         </form>
-        <CardFooter className="flex flex-col items-center space-y-2">
+        <CardFooter className="flex flex-col items-center space-y-2 pt-6">
           <TypographyP className="text-sm">
             Don't have an account?{' '}
             <Link href="/auth/signup" className="font-medium text-primary hover:underline">
@@ -80,7 +81,7 @@ export default function SignInPage({ searchParams }: { searchParams: { message?:
           </TypographyP>
           <TypographyP className="text-sm">
             <Link href="/auth/forgot-password" className="font-medium text-xs text-muted-foreground hover:text-primary hover:underline">
-              Forgot Password? (Coming Soon)
+              Forgot Password? (TBD)
             </Link>
           </TypographyP>
         </CardFooter>
@@ -88,3 +89,4 @@ export default function SignInPage({ searchParams }: { searchParams: { message?:
     </div>
   );
 }
+

@@ -1,3 +1,4 @@
+
 'use client';
 
 import { signUp } from '@/app/auth/actions';
@@ -37,16 +38,18 @@ export default function SignUpPage() {
       toast({ title: 'Sign Up Failed', description: state.error, variant: 'destructive' });
     }
     if (state?.message && !state.error) {
-      toast({ title: 'Sign Up Successful', description: state.message });
-       if (!state.message.includes('check your email')) { // Redirect if not waiting for email confirmation
-        router.push('/');
+      toast({ title: 'Sign Up Request', description: state.message });
+       if (!state.message.includes('check your email')) { 
+        // Assuming immediate sign in if no email confirmation needed
+        // This logic might need refinement based on Supabase autoVerify settings
+        router.push('/'); 
       }
     }
   }, [state, toast, router]);
 
   return (
-    <div className="flex items-center justify-center min-h-[70vh] py-12">
-      <Card className="w-full max-w-md">
+    <div className="flex items-center justify-center min-h-[calc(100vh-10rem)] py-12 px-4">
+      <Card className="w-full max-w-md mx-auto">
         <form action={formAction}>
           <CardHeader className="text-center">
             <CardTitle className="text-2xl font-bold">Create an Account</CardTitle>
@@ -74,7 +77,7 @@ export default function SignUpPage() {
             )}
           </CardContent>
         </form>
-        <CardFooter className="flex flex-col items-center space-y-2">
+        <CardFooter className="flex flex-col items-center space-y-2 pt-6">
           <TypographyP className="text-sm">
             Already have an account?{' '}
             <Link href="/auth/signin" className="font-medium text-primary hover:underline">
@@ -86,3 +89,4 @@ export default function SignUpPage() {
     </div>
   );
 }
+

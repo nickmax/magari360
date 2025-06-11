@@ -1,5 +1,6 @@
+
 import { TypographyH1, TypographyP } from "@/components/ui/typography";
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from "@/components/ui/card";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import Link from "next/link";
@@ -9,7 +10,6 @@ export const metadata = {
   description: 'Find verified car dealers across Kenya on Magari 360.',
 };
 
-// Placeholder dealer data
 const mockDealers = [
   { id: '1', name: 'Nairobi Premier Motors', logoUrl: 'https://placehold.co/100x100.png?text=NPM', location: 'Nairobi', rating: 4.5, specialties: ['Luxury', 'SUV'], slug: 'nairobi-premier-motors' },
   { id: '2', name: 'Mombasa Auto Hub', logoUrl: 'https://placehold.co/100x100.png?text=MAH', location: 'Mombasa', rating: 4.2, specialties: ['Sedan', 'Used'], slug: 'mombasa-auto-hub' },
@@ -21,52 +21,52 @@ export default function DealerDirectoryPage() {
     <div className="space-y-8">
       <header className="text-center py-6 border-b border-border">
         <TypographyH1>Find a Trusted Dealer</TypographyH1>
-        <TypographyP className="mt-3 max-w-2xl mx-auto text-lg text-muted-foreground">
+        <TypographyP className="mt-3 max-w-xl sm:max-w-2xl mx-auto text-lg text-muted-foreground">
           Browse our directory of verified car dealerships across Kenya.
         </TypographyP>
       </header>
 
-      {/* Filters for county, name, rating will go here */}
       <div className="mb-8 p-4 bg-secondary/30 rounded-lg">
-        <TypographyP className="text-center text-muted-foreground">Dealer search filters (County, Name, Rating) will be implemented here.</TypographyP>
+        <TypographyP className="text-center text-muted-foreground text-sm sm:text-base">Dealer search filters (County, Name, Rating) will be implemented here.</TypographyP>
       </div>
 
       <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
         {mockDealers.map((dealer) => (
           <Card key={dealer.id} className="overflow-hidden rounded-lg shadow-md hover:shadow-xl transition-shadow">
-            <CardHeader className="flex flex-row items-center gap-4 p-4">
-              <Avatar className="h-16 w-16 border">
+            <CardHeader className="flex flex-col sm:flex-row items-center gap-3 sm:gap-4 p-4">
+              <Avatar className="h-14 w-14 sm:h-16 sm:w-16 border">
                 <AvatarImage src={dealer.logoUrl} alt={`${dealer.name} logo`} data-ai-hint="logo placeholder" />
                 <AvatarFallback>{dealer.name.substring(0,2).toUpperCase()}</AvatarFallback>
               </Avatar>
-              <div>
-                <CardTitle>
+              <div className="text-center sm:text-left">
+                <CardTitle className="text-lg sm:text-xl">
                   <Link href={`/dealer/${dealer.slug}`} className="hover:text-primary transition-colors">
                     {dealer.name}
                   </Link>
                 </CardTitle>
-                <CardDescription>{dealer.location}</CardDescription>
+                <CardDescription className="text-xs sm:text-sm">{dealer.location}</CardDescription>
               </div>
             </CardHeader>
             <CardContent className="p-4 pt-0">
-              <div className="flex items-center mb-2">
-                <Badge variant="outline">Rating: {dealer.rating} / 5</Badge>
+              <div className="flex items-center justify-center sm:justify-start mb-2">
+                <Badge variant="outline" className="text-xs sm:text-sm">Rating: {dealer.rating} / 5</Badge>
               </div>
-              <div className="space-x-1">
-                {dealer.specialties.map(spec => <Badge key={spec} variant="secondary">{spec}</Badge>)}
+              <div className="space-x-1 text-center sm:text-left">
+                {dealer.specialties.map(spec => <Badge key={spec} variant="secondary" className="text-xs">{spec}</Badge>)}
               </div>
             </CardContent>
-            <CardFooter className="p-4 border-t">
-              <Link href={`/dealer/${dealer.slug}`} className="text-sm font-medium text-primary hover:underline w-full text-center">
+            <CardFooter className="p-4 border-t bg-muted/10">
+              <Link href={`/dealer/${dealer.slug}`} className="text-xs sm:text-sm font-medium text-primary hover:underline w-full text-center">
                 View Profile & Inventory &rarr;
               </Link>
             </CardFooter>
           </Card>
         ))}
       </div>
-       <TypographyP className="text-sm text-center text-muted-foreground pt-4">
+       <TypographyP className="text-xs sm:text-sm text-center text-muted-foreground pt-4">
         Dealer data will be managed via Supabase. This is a placeholder display.
       </TypographyP>
     </div>
   );
 }
+

@@ -1,3 +1,4 @@
+
 import { TypographyH1, TypographyP } from "@/components/ui/typography";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -15,17 +16,16 @@ export default function ContactPage() {
     <div className="space-y-8">
       <header className="text-center py-6 border-b border-border">
         <TypographyH1>Contact Magari 360</TypographyH1>
-        <TypographyP className="mt-3 max-w-2xl mx-auto text-lg text-muted-foreground">
+        <TypographyP className="mt-3 max-w-xl sm:max-w-2xl mx-auto text-lg text-muted-foreground">
           Have questions or need assistance? We're here to help.
         </TypographyP>
       </header>
 
-      <Card className="max-w-2xl mx-auto">
-        <CardHeader>
-          <CardTitle>Send Us a Message</CardTitle>
+      <Card className="max-w-lg sm:max-w-xl md:max-w-2xl mx-auto">
+        <CardHeader className="p-4 sm:p-6">
+          <CardTitle className="text-xl sm:text-2xl">Send Us a Message</CardTitle>
         </CardHeader>
-        <CardContent className="space-y-6">
-          {/* This is a basic placeholder form. React Hook Form would be used for a real implementation. */}
+        <CardContent className="space-y-6 p-4 sm:p-6">
           <div>
             <Label htmlFor="name">Full Name</Label>
             <Input id="name" placeholder="Your Name" />
@@ -40,9 +40,9 @@ export default function ContactPage() {
           </div>
           <div>
             <Label htmlFor="message">Message</Label>
-            <Textarea id="message" placeholder="Your message..." className="min-h-[120px]" />
+            <Textarea id="message" placeholder="Your message..." className="min-h-[100px] sm:min-h-[120px]" />
           </div>
-          <Button className="w-full">Send Message (Coming Soon)</Button>
+          <Button className="w-full text-sm sm:text-base">Send Message (TBD)</Button>
            <TypographyP className="text-xs text-center text-muted-foreground">
             This is a visual placeholder. Form submission functionality will be added.
           </TypographyP>
@@ -51,3 +51,4 @@ export default function ContactPage() {
     </div>
   );
 }
+
