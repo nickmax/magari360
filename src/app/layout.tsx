@@ -78,7 +78,9 @@ async function AppHeader() {
             <>
               <Button asChild variant="default" size="sm" className="hidden sm:flex bg-foreground text-background hover:bg-foreground/90">
                 <Link href="/dashboard">
-                  <LayoutDashboard className="h-4 w-4 mr-2" /> Dashboard
+                  <span className="flex items-center">
+                    <LayoutDashboard className="h-4 w-4 mr-2" /> Dashboard
+                  </span>
                 </Link>
               </Button>
               <form action={signOut}>
@@ -91,7 +93,9 @@ async function AppHeader() {
           ) : (
              <Button asChild variant="default" size="sm" className="bg-foreground text-background hover:bg-foreground/90">
                 <Link href="/auth/signin">
-                 <LogIn className="h-4 w-4 mr-0 sm:mr-2" /> <span className="hidden sm:inline">Sign In</span>
+                  <span className="flex items-center">
+                    <LogIn className="h-4 w-4 mr-0 sm:mr-2" /> <span className="hidden sm:inline">Sign In</span>
+                  </span>
                 </Link>
               </Button>
           )}
