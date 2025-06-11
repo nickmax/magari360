@@ -7,35 +7,44 @@ body {
   font-family: 'Inter', sans-serif;
 }
 
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Space Grotesk', sans-serif;
+}
+
 @layer base {
   :root {
     /* Light Mode - Minimalist, High-Contrast, Blue-Accented */
     --background: 0 0% 100%; /* #FFFFFF Pure white */
-    --foreground: 215 14% 31%; /* #4B5563 Cool gray (Body text) */
+    --foreground: 222 47% 11%; /* #111827 Charcoal black (Headings & Primary Text) */
 
     --card: 0 0% 100%; /* #FFFFFF White */
-    --card-foreground: 215 14% 31%; /* #4B5563 Cool gray (inherited) */
+    --card-foreground: 222 47% 11%; /* #111827 Charcoal black (Text on cards) */
 
     --popover: 0 0% 100%; /* #FFFFFF White */
-    --popover-foreground: 215 14% 31%; /* #4B5563 Cool gray (inherited) */
+    --popover-foreground: 222 47% 11%; /* #111827 Charcoal black */
 
     --primary: 217 91% 60%; /* #3B82F6 Saturated Blue */
     --primary-foreground: 0 0% 100%; /* #FFFFFF White */
 
-    --secondary: 210 40% 98%; /* #F9FAFB Light Gray */
+    --secondary: 210 40% 98%; /* #F9FAFB Light Gray (Secondary sections) */
     --secondary-foreground: 222 47% 11%; /* #111827 Charcoal black */
 
-    --muted: 210 40% 98%; /* #F9FAFB Light Gray */
-    --muted-foreground: 215 9% 65%; /* #9CA3AF Soft gray */
+    --muted: 210 40% 98%; /* #F9FAFB Light Gray (Also for muted backgrounds) */
+    --muted-foreground: 215 14% 31%; /* #4B5563 Cool gray (Body text, less prominent info) */
+    /* Note: Spec wants Body #4B5563. Muted info/placeholders: #9CA3AF */
+    /* For now, --muted-foreground will serve as the primary body text color */
+    /* and a utility class or specific component styling can be used for #9CA3AF placeholders */
+    
+    --placeholder-text: 215 9% 65%; /* #9CA3AF Soft gray for placeholders */
 
     --accent: 217 91% 60%; /* #3B82F6 Saturated Blue */
     --accent-foreground: 0 0% 100%; /* #FFFFFF White */
 
     --destructive: 0 84.2% 60.2%; /* Default Red */
-    --destructive-foreground: 0 0% 98%; /* Default Light text for destructive */
+    --destructive-foreground: 0 0% 98%; 
 
     --border: 220 14% 90%; /* #E5E7EB Subtle Gray */
-    --input: 0 0% 100%; /* #FFFFFF White (background for input fields) */
+    --input: 220 14% 90%; /* #E5E7EB Subtle Gray for input borders */
     --ring: 217 91% 60%; /* #3B82F6 Saturated Blue (focus rings) */
 
     --radius: 1rem; /* 16px rounded corners */
@@ -46,45 +55,49 @@ body {
     --chart-4: 43 74% 66%;
     --chart-5: 27 87% 67%;
 
-    /* Sidebar Light Mode */
     --sidebar-background: 210 40% 98%; /* #F9FAFB Light Gray */
     --sidebar-foreground: 222 47% 11%; /* #111827 Charcoal black */
     --sidebar-primary: 217 91% 60%; /* #3B82F6 Saturated Blue */
     --sidebar-primary-foreground: 0 0% 100%; /* #FFFFFF White */
-    --sidebar-accent: 217 91% 55%; /* Slightly adjusted blue for accent hover */
-    --sidebar-accent-foreground: 0 0% 100%; /* #FFFFFF White */
-    --sidebar-border: 220 14% 90%; /* #E5E7EB Subtle Gray */
-    --sidebar-ring: 217 91% 60%; /* #3B82F6 Saturated Blue */
+    --sidebar-accent: 217 91% 55%; 
+    --sidebar-accent-foreground: 0 0% 100%;
+    --sidebar-border: 220 14% 90%; 
+    --sidebar-ring: 217 91% 60%;
   }
 
   .dark {
     /* Dark Mode - Minimalist, High-Contrast, Blue-Accented */
     --background: 222 47% 11%; /* #111827 Off-black */
-    --foreground: 220 13% 85%; /* #D1D5DB Gray-100 (Body text) */
+    --foreground: 0 0% 100%; /* #FFFFFF White (Headings & Primary Text) */
 
     --card: 215 28% 17%; /* #1F2937 Dark slate */
-    --card-foreground: 220 13% 85%; /* #D1D5DB Gray-100 (inherited) */
+    --card-foreground: 0 0% 100%; /* #FFFFFF White (Text on cards) */
 
     --popover: 215 28% 17%; /* #1F2937 Dark slate */
-    --popover-foreground: 220 13% 85%; /* #D1D5DB Gray-100 (inherited) */
+    --popover-foreground: 0 0% 100%; /* #FFFFFF White */
 
     --primary: 217 91% 60%; /* #3B82F6 Saturated Blue */
     --primary-foreground: 0 0% 100%; /* #FFFFFF White */
 
-    --secondary: 215 19% 25%; /* #374151 Darker Slate */
-    --secondary-foreground: 220 13% 85%; /* #D1D5DB Gray-100 */
+    --secondary: 215 28% 17%; /* #1F2937 Dark slate (Secondary sections, matches card) */
+    --secondary-foreground: 0 0% 100%; /* #FFFFFF White */
     
-    --muted: 215 28% 17%; /* #1F2937 Dark slate */
-    --muted-foreground: 214 9% 48%; /* #6B7280 Slate gray */
+    --muted: 215 28% 17%; /* #1F2937 Dark slate (Also for muted backgrounds) */
+    --muted-foreground: 220 13% 85%; /* #D1D5DB Gray-100 (Body text, less prominent info) */
+    /* Note: Spec wants Body #D1D5DB. Muted text/placeholders: #6B7280 */
+    /* For now, --muted-foreground will serve as the primary body text color */
+    /* and a utility class or specific component styling can be used for #6B7280 placeholders */
+
+    --placeholder-text: 214 9% 48%; /* #6B7280 Slate gray for placeholders */
 
     --accent: 217 91% 60%; /* #3B82F6 Saturated Blue */
     --accent-foreground: 0 0% 100%; /* #FFFFFF White */
 
-    --destructive: 0 72.2% 50.6%; /* Darker Red for dark mode */
+    --destructive: 0 72.2% 50.6%;
     --destructive-foreground: 0 0% 98%;
 
     --border: 215 19% 25%; /* #374151 Slate gray (for borders) */
-    --input: 215 28% 17%; /* #1F2937 Dark slate (background for input fields) */
+    --input: 215 19% 25%; /* #374151 Slate gray for input borders */
     --ring: 217 91% 60%; /* #3B82F6 Saturated Blue */
 
     /* --radius is already defined in :root */
@@ -95,15 +108,14 @@ body {
     --chart-4: 280 65% 60%;
     --chart-5: 340 75% 55%;
 
-    /* Sidebar Dark Mode */
     --sidebar-background: 215 28% 17%; /* #1F2937 Dark slate */
-    --sidebar-foreground: 220 13% 85%; /* #D1D5DB Gray-100 */
+    --sidebar-foreground: 0 0% 100%; /* #FFFFFF White */
     --sidebar-primary: 217 91% 60%; /* #3B82F6 Saturated Blue */
     --sidebar-primary-foreground: 0 0% 100%; /* #FFFFFF White */
-    --sidebar-accent: 217 91% 65%; /* Slightly lighter blue for accent hover */
-    --sidebar-accent-foreground: 0 0% 100%; /* #FFFFFF White */
-    --sidebar-border: 215 19% 25%; /* #374151 Slate gray */
-    --sidebar-ring: 217 91% 60%; /* #3B82F6 Saturated Blue */
+    --sidebar-accent: 217 91% 65%; 
+    --sidebar-accent-foreground: 0 0% 100%;
+    --sidebar-border: 215 19% 25%; 
+    --sidebar-ring: 217 91% 60%;
   }
 }
 
@@ -112,7 +124,24 @@ body {
     @apply border-border;
   }
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-muted-foreground; /* Default body text to muted-foreground (#4B5563 light / #D1D5DB dark) */
     font-feature-settings: "rlig" 1, "calt" 1;
+  }
+  /* Apply primary foreground to headings by default through typography components or specific classes */
+  h1, h2, h3, h4, h5, h6 {
+    @apply text-foreground;
+  }
+
+  ::placeholder {
+    color: hsl(var(--placeholder-text));
+    opacity: 1; /* Firefox */
+  }
+
+  :-ms-input-placeholder { /* Internet Explorer 10-11 */
+    color: hsl(var(--placeholder-text));
+  }
+
+  ::-ms-input-placeholder { /* Microsoft Edge */
+    color: hsl(var(--placeholder-text));
   }
 }
