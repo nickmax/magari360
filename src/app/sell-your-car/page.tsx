@@ -1,24 +1,25 @@
+
 import { TypographyH1, TypographyP } from "@/components/ui/typography";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
 export const metadata = {
-  title: 'Sell Your Car - Magari 360',
-  description: 'Get a valuation and sell your car through Magari 360.',
+  title: 'List Your Car - Rivent', // Updated title
+  description: 'Partner with Rivent and list your car for rentals.', // Updated description
 };
 
-export default function SellYourCarPage() {
+export default function SellYourCarPage() { // Consider renaming to ListYourCarPage for Rivent
   return (
     <div className="space-y-8">
       <header className="text-center py-6 border-b border-border">
-        <TypographyH1>Sell Your Car with Magari 360</TypographyH1>
+        <TypographyH1 className="text-foreground">List Your Car with Rivent</TypographyH1> {/* Updated text */}
         <TypographyP className="mt-3 max-w-2xl mx-auto text-lg text-muted-foreground">
-          Ready to sell? Provide your vehicle details and let us help you find a buyer.
+          Ready to earn from your car? Provide your vehicle details and let us help you find renters.
         </TypographyP>
       </header>
 
-      <Card className="max-w-2xl mx-auto">
+      <Card className="max-w-2xl mx-auto bg-card shadow-xl rounded-xl border-border"> {/* Rivent card style */}
         <CardHeader>
-          <CardTitle>Vehicle Valuation Form</CardTitle>
+          <CardTitle className="text-foreground">Vehicle Listing Form</CardTitle> {/* Updated text */}
         </CardHeader>
         <CardContent>
           <TypographyP className="text-muted-foreground">

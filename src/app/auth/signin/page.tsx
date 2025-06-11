@@ -13,14 +13,14 @@ import { useEffect } from 'react';
 import { useToast } from '@/hooks/use-toast';
 
 export const metadata = {
-  title: 'Sign In - Magari 360',
-  description: 'Access your Magari 360 account.',
+  title: 'Sign In - Rivent', // Updated title
+  description: 'Access your Rivent account.', // Updated description
 };
 
 function SubmitButton() {
   const { pending } = useFormStatus();
   return (
-    <Button className="w-full" type="submit" disabled={pending}>
+    <Button className="w-full bg-primary hover:bg-primary/90 text-primary-foreground" type="submit" disabled={pending}> {/* Rivent primary button style */}
       {pending ? 'Signing In...' : 'Sign In'}
     </Button>
   );
@@ -44,20 +44,20 @@ export default function SignInPage({ searchParams }: { searchParams: { message?:
 
   return (
     <div className="flex items-center justify-center min-h-[calc(100vh-10rem)] py-12 px-4">
-      <Card className="w-full max-w-md mx-auto">
+      <Card className="w-full max-w-md mx-auto bg-card shadow-xl rounded-xl"> {/* Rivent card style */}
         <form action={formAction}>
           <CardHeader className="text-center">
-            <CardTitle className="text-2xl font-bold">Sign In to Magari 360</CardTitle>
-            <CardDescription>Enter your credentials to access your account.</CardDescription>
+            <CardTitle className="text-2xl font-bold text-foreground">Sign In to Rivent</CardTitle> {/* Updated text */}
+            <CardDescription className="text-muted-foreground">Enter your credentials to access your account.</CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
             <div className="space-y-2">
-              <Label htmlFor="email">Email</Label>
-              <Input id="email" name="email" type="email" placeholder="you@example.com" required />
+              <Label htmlFor="email" className="text-muted-foreground">Email</Label>
+              <Input id="email" name="email" type="email" placeholder="you@example.com" required className="bg-background border-border focus:border-primary" /> {/* Rivent input style */}
             </div>
             <div className="space-y-2">
-              <Label htmlFor="password">Password</Label>
-              <Input id="password" name="password" type="password" placeholder="••••••••" required />
+              <Label htmlFor="password" className="text-muted-foreground">Password</Label>
+              <Input id="password" name="password" type="password" placeholder="••••••••" required className="bg-background border-border focus:border-primary" /> {/* Rivent input style */}
             </div>
             <SubmitButton />
             {state?.error && (
@@ -72,8 +72,8 @@ export default function SignInPage({ searchParams }: { searchParams: { message?:
             )}
           </CardContent>
         </form>
-        <CardFooter className="flex flex-col items-center space-y-2 pt-6">
-          <TypographyP className="text-sm">
+        <CardFooter className="flex flex-col items-center space-y-2 pt-6 border-t border-border"> {/* Rivent card style */}
+          <TypographyP className="text-sm text-muted-foreground">
             Don't have an account?{' '}
             <Link href="/auth/signup" className="font-medium text-primary hover:underline">
               Sign Up
@@ -89,4 +89,3 @@ export default function SignInPage({ searchParams }: { searchParams: { message?:
     </div>
   );
 }
-

@@ -1,3 +1,4 @@
+
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -42,21 +43,27 @@ export function VehicleInquiryForm({ vehicleId, vehicleName }: VehicleInquiryFor
       ...values,
       vehicleId,
       vehicleName,
+      createdAt: new Date().toISOString(), // Added createdAt
     };
-    console.log("Vehicle Inquiry Submitted:", inquiryData); // Log for data analysis (as per Other requirements)
+    console.log("Vehicle Inquiry Submitted:", inquiryData); 
     toast({
       title: "Inquiry Sent!",
       description: `Thank you for your interest in the ${vehicleName}. We'll be in touch shortly.`,
       variant: "default",
     });
-    form.reset();
+    form.reset({ // Reset with default message including potentially updated vehicleName
+        name: "",
+        email: "",
+        phone: "",
+        message: `I'm interested in the ${vehicleName} (ID: ${vehicleId}). Could you please provide more information?`,
+    });
   }
 
   return (
-    <Card className="shadow-lg rounded-lg">
+    <Card className="bg-card shadow-lg rounded-lg border-border"> {/* Rivent card style */}
       <CardHeader>
-        <CardTitle className="font-headline text-xl sm:text-2xl">Inquire About This Vehicle</CardTitle>
-        <CardDescription>Questions? We're here to help.</CardDescription>
+        <CardTitle className="font-headline text-xl sm:text-2xl text-foreground">Inquire About This Vehicle</CardTitle>
+        <CardDescription className="text-muted-foreground">Questions? We're here to help.</CardDescription>
       </CardHeader>
       <CardContent>
         <Form {...form}>
@@ -66,9 +73,9 @@ export function VehicleInquiryForm({ vehicleId, vehicleName }: VehicleInquiryFor
               name="name"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Full Name</FormLabel>
+                  <FormLabel className="text-muted-foreground">Full Name</FormLabel>
                   <FormControl>
-                    <Input placeholder="John Doe" {...field} />
+                    <Input placeholder="John Doe" {...field} className="bg-background border-border focus:border-primary" /> {/* Rivent input style */}
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -79,9 +86,9 @@ export function VehicleInquiryForm({ vehicleId, vehicleName }: VehicleInquiryFor
               name="email"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Email Address</FormLabel>
+                  <FormLabel className="text-muted-foreground">Email Address</FormLabel>
                   <FormControl>
-                    <Input type="email" placeholder="you@example.com" {...field} />
+                    <Input type="email" placeholder="you@example.com" {...field} className="bg-background border-border focus:border-primary" /> {/* Rivent input style */}
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -92,9 +99,9 @@ export function VehicleInquiryForm({ vehicleId, vehicleName }: VehicleInquiryFor
               name="phone"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Phone Number (Optional)</FormLabel>
+                  <FormLabel className="text-muted-foreground">Phone Number (Optional)</FormLabel>
                   <FormControl>
-                    <Input type="tel" placeholder="+1 (234) 567-890" {...field} />
+                    <Input type="tel" placeholder="+254 700 123456" {...field} className="bg-background border-border focus:border-primary" /> {/* Rivent input style */}
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -105,11 +112,11 @@ export function VehicleInquiryForm({ vehicleId, vehicleName }: VehicleInquiryFor
               name="message"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Message</FormLabel>
+                  <FormLabel className="text-muted-foreground">Message</FormLabel>
                   <FormControl>
                     <Textarea
                       placeholder={`I'm interested in the ${vehicleName}...`}
-                      className="min-h-[120px]"
+                      className="min-h-[120px] bg-background border-border focus:border-primary" /* Rivent textarea style */
                       {...field}
                     />
                   </FormControl>
@@ -117,5 +124,12 @@ export function VehicleInquiryForm({ vehicleId, vehicleName }: VehicleInquiryFor
                 </FormItem>
               )}
             />
-            <Button type="submit" className="w-full font-semibold" disabled={form.formState.isSubmitting}>
-              {form.form
+            <Button type="submit" className="w-full font-semibold bg-primary hover:bg-primary/90 text-primary-foreground" disabled={form.formState.isSubmitting}> {/* Rivent primary button style */}
+              {form.formState.isSubmitting ? "Sending..." : "Send Inquiry"}
+            </Button>
+          </form>
+        </Form>
+      </CardContent>
+    </Card>
+  );
+}

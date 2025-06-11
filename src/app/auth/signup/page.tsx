@@ -15,14 +15,14 @@ import { useRouter } from 'next/navigation';
 
 
 export const metadata = {
-  title: 'Sign Up - Magari 360',
-  description: 'Create your Magari 360 account.',
+  title: 'Sign Up - Rivent', // Updated title
+  description: 'Create your Rivent account.', // Updated description
 };
 
 function SubmitButton() {
   const { pending } = useFormStatus();
   return (
-    <Button className="w-full" type="submit" disabled={pending}>
+    <Button className="w-full bg-primary hover:bg-primary/90 text-primary-foreground" type="submit" disabled={pending}> {/* Rivent primary button style */}
       {pending ? 'Signing Up...' : 'Sign Up'}
     </Button>
   );
@@ -40,8 +40,6 @@ export default function SignUpPage() {
     if (state?.message && !state.error) {
       toast({ title: 'Sign Up Request', description: state.message });
        if (!state.message.includes('check your email')) { 
-        // Assuming immediate sign in if no email confirmation needed
-        // This logic might need refinement based on Supabase autoVerify settings
         router.push('/'); 
       }
     }
@@ -49,20 +47,20 @@ export default function SignUpPage() {
 
   return (
     <div className="flex items-center justify-center min-h-[calc(100vh-10rem)] py-12 px-4">
-      <Card className="w-full max-w-md mx-auto">
+      <Card className="w-full max-w-md mx-auto bg-card shadow-xl rounded-xl"> {/* Rivent card style */}
         <form action={formAction}>
           <CardHeader className="text-center">
-            <CardTitle className="text-2xl font-bold">Create an Account</CardTitle>
-            <CardDescription>Join Magari 360 to start buying or selling.</CardDescription>
+            <CardTitle className="text-2xl font-bold text-foreground">Create an Account</CardTitle>
+            <CardDescription className="text-muted-foreground">Join Rivent to start renting or listing cars.</CardDescription> {/* Updated text */}
           </CardHeader>
           <CardContent className="space-y-4">
             <div className="space-y-2">
-              <Label htmlFor="email">Email</Label>
-              <Input id="email" name="email" type="email" placeholder="you@example.com" required />
+              <Label htmlFor="email" className="text-muted-foreground">Email</Label>
+              <Input id="email" name="email" type="email" placeholder="you@example.com" required className="bg-background border-border focus:border-primary"/> {/* Rivent input style */}
             </div>
             <div className="space-y-2">
-              <Label htmlFor="password">Password</Label>
-              <Input id="password" name="password" type="password" placeholder="•••••••• (min. 6 characters)" required />
+              <Label htmlFor="password" className="text-muted-foreground">Password</Label>
+              <Input id="password" name="password" type="password" placeholder="•••••••• (min. 6 characters)" required className="bg-background border-border focus:border-primary"/> {/* Rivent input style */}
             </div>
             <SubmitButton />
             {state?.error && (
@@ -77,8 +75,8 @@ export default function SignUpPage() {
             )}
           </CardContent>
         </form>
-        <CardFooter className="flex flex-col items-center space-y-2 pt-6">
-          <TypographyP className="text-sm">
+        <CardFooter className="flex flex-col items-center space-y-2 pt-6 border-t border-border"> {/* Rivent card style */}
+          <TypographyP className="text-sm text-muted-foreground">
             Already have an account?{' '}
             <Link href="/auth/signin" className="font-medium text-primary hover:underline">
               Sign In
@@ -89,4 +87,3 @@ export default function SignUpPage() {
     </div>
   );
 }
-

@@ -5,7 +5,7 @@ import './globals.css';
 import { Toaster as SonnerToaster } from '@/components/ui/sonner';
 import { Toaster as RadixToaster } from "@/components/ui/toaster";
 import { ThemeToggleButton } from '@/components/theme-toggle-button';
-import { CarIcon, Search, Tag, UserCircle, LogIn, LogOut, LayoutDashboard, Newspaper, MessageSquare, AlignJustify, XIcon } from 'lucide-react';
+import { CircleDot, Search, Tag, UserCircle, LogIn, LogOut, LayoutDashboard, Newspaper, MessageSquare, AlignJustify, XIcon, Fuel } from 'lucide-react'; // Changed CarIcon to CircleDot
 import { createClient } from '@/lib/supabase/server';
 import { signOut } from '@/app/auth/actions';
 import { Button } from '@/components/ui/button';
@@ -14,8 +14,8 @@ import { cn } from '@/lib/utils';
 
 
 export const metadata: Metadata = {
-  title: 'Magari 360 - Kenyan Car Dealership Platform',
-  description: 'Buy, sell, and discover cars in Kenya. Manage your inventory with Magari 360.',
+  title: 'Rivent - Your Car Rental Platform', // Updated title
+  description: 'Discover, book, and manage car rentals with Rivent.', // Updated description
 };
 
 interface NavLinkProps {
@@ -50,8 +50,8 @@ async function AppHeader() {
 
   const navItems = [
     { href: "/inventory", label: "Inventory", icon: <Search className="h-4 w-4" />, alwaysShow: true },
-    { href: "/sell-your-car", label: "Sell Your Car", icon: <Tag className="h-4 w-4" /> },
-    { href: "/dealer-directory", label: "Dealers", icon: <UserCircle className="h-4 w-4" /> },
+    { href: "/sell-your-car", label: "List Your Car", icon: <Tag className="h-4 w-4" /> }, // Changed label for Rivent context
+    { href: "/dealer-directory", label: "Partners", icon: <UserCircle className="h-4 w-4" /> }, // Changed label
     { href: "/blog", label: "Blog", icon: <Newspaper className="h-4 w-4" /> },
     { href: "/contact", label: "Contact Us", icon: <MessageSquare className="h-4 w-4" /> },
   ];
@@ -60,9 +60,9 @@ async function AppHeader() {
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="container flex h-16 items-center">
         <Link href="/" className="mr-4 sm:mr-6 flex items-center space-x-2">
-          <CarIcon className="h-6 w-6 sm:h-7 sm:w-7 text-primary" />
-          <span className="font-bold text-lg sm:text-xl font-headline">
-            Magari 360
+          <CircleDot className="h-6 w-6 sm:h-7 sm:w-7 text-primary" />
+          <span className="font-bold text-lg sm:text-xl font-headline text-foreground"> {/* Ensure foreground is used for title */}
+            Rivent
           </span>
         </Link>
 
@@ -78,20 +78,24 @@ async function AppHeader() {
         <div className="flex flex-1 items-center justify-end space-x-2">
           {user ? (
             <>
-              <NavLink href="/dashboard" className="hidden sm:flex">
-                <LayoutDashboard className="h-4 w-4" /> Dashboard
-              </NavLink>
+              <Button asChild variant="default" size="sm" className="hidden sm:flex bg-foreground text-background hover:bg-foreground/90">
+                <Link href="/dashboard">
+                  <LayoutDashboard className="h-4 w-4 mr-2" /> Dashboard
+                </Link>
+              </Button>
               <form action={signOut}>
-                <Button type="submit" variant="ghost" size="sm" className="text-sm font-medium text-muted-foreground hover:text-primary flex items-center gap-1.5">
-                  <LogOut className="h-4 w-4" />
-                  <span className="hidden sm:inline">Sign Out</span>
+                <Button type="submit" variant="ghost" size="icon" className="text-muted-foreground hover:text-primary" title="Sign Out">
+                  <LogOut className="h-5 w-5" />
+                   <span className="sr-only">Sign Out</span>
                 </Button>
               </form>
             </>
           ) : (
-            <NavLink href="/auth/signin" className="text-primary hover:text-primary/80">
-              <LogIn className="h-4 w-4" /> Sign In
-            </NavLink>
+             <Button asChild variant="default" size="sm" className="bg-foreground text-background hover:bg-foreground/90">
+                <Link href="/auth/signin">
+                 <LogIn className="h-4 w-4 mr-0 sm:mr-2" /> <span className="hidden sm:inline">Sign In</span>
+                </Link>
+              </Button>
           )}
           <ThemeToggleButton />
 
@@ -104,11 +108,11 @@ async function AppHeader() {
                   <span className="sr-only">Open menu</span>
                 </Button>
               </SheetTrigger>
-              <SheetContent side="right" className="w-full max-w-xs sm:max-w-sm p-4">
+              <SheetContent side="right" className="w-full max-w-xs sm:max-w-sm p-4 bg-background">
                  <div className="flex justify-between items-center mb-6">
                     <Link href="/" className="flex items-center space-x-2">
-                      <CarIcon className="h-7 w-7 text-primary" />
-                      <span className="font-bold text-xl font-headline">Magari 360</span>
+                      <CircleDot className="h-7 w-7 text-primary" />
+                      <span className="font-bold text-xl font-headline text-foreground">Rivent</span>
                     </Link>
                     <SheetClose asChild>
                       <Button variant="ghost" size="icon">
@@ -154,21 +158,21 @@ async function AppHeader() {
 
 function AppFooter() {
   return (
-    <footer className="border-t bg-secondary/50">
-      <div className="container py-8 text-center text-xs sm:text-sm text-muted-foreground">
+    <footer className="border-t bg-black text-slate-400"> {/* Updated to dark footer */}
+      <div className="container py-8 text-center text-xs sm:text-sm">
         <div className="flex flex-col items-center justify-center gap-2 mb-4">
-           <CarIcon className="h-7 w-7 sm:h-8 sm:w-8 text-primary" />
-           <p className="font-bold text-md sm:text-lg font-headline text-foreground">Magari 360</p>
+           <CircleDot className="h-7 w-7 sm:h-8 sm:w-8 text-primary" />
+           <p className="font-bold text-md sm:text-lg font-headline text-white">Rivent</p> {/* Text to white */}
         </div>
         <div className="flex flex-wrap justify-center gap-x-3 sm:gap-x-4 gap-y-2 mb-4 text-xs sm:text-sm">
           <Link href="/inventory" className="hover:text-primary">Inventory</Link>
-          <Link href="/sell-your-car" className="hover:text-primary">Sell Car</Link>
+          <Link href="/sell-your-car" className="hover:text-primary">List Your Car</Link>
           <Link href="/contact" className="hover:text-primary">Contact</Link>
           <Link href="/privacy" className="hover:text-primary">Privacy Policy (TBD)</Link>
            <Link href="/terms" className="hover:text-primary">Terms of Service (TBD)</Link>
         </div>
         <p className="text-xs">
-          &copy; {new Date().getFullYear()} Magari 360. All rights reserved. Platform for Kenyan car dealerships.
+          &copy; {new Date().getFullYear()} Rivent. All rights reserved. Your trusted car rental platform. {/* Updated text */}
         </p>
       </div>
     </footer>
@@ -187,10 +191,10 @@ export default function RootLayout({
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
-        <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+        <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" /> {/* Added Plus Jakarta Sans for Rivent */}
       </head>
-      <body className="font-body antialiased">
-        <div className="relative flex min-h-screen flex-col bg-background">
+      <body className="font-body antialiased bg-background text-foreground"> {/* Ensured body text uses foreground */}
+        <div className="relative flex min-h-screen flex-col"> {/* Removed bg-background from here, apply to body */}
           <AppHeader />
           <main className="flex-1 container mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8">
             {children}

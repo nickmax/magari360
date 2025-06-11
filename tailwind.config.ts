@@ -1,3 +1,4 @@
+
 import type {Config} from 'tailwindcss';
 
 export default {
@@ -18,7 +19,7 @@ export default {
     extend: {
       fontFamily: {
         body: ['Inter', 'sans-serif'],
-        headline: ['Space Grotesk', 'sans-serif'],
+        headline: ['Plus Jakarta Sans', 'sans-serif'], // Updated for Rivent
         code: ['monospace'],
       },
       colors: {
@@ -75,9 +76,16 @@ export default {
         },
       },
       borderRadius: {
-        lg: 'var(--radius)',
+        lg: 'var(--radius)', // Rivent uses more rounded corners, this should adapt via globals.css --radius
         md: 'calc(var(--radius) - 2px)',
         sm: 'calc(var(--radius) - 4px)',
+        xl: 'calc(var(--radius) + 4px)', // Added for potentially more rounded elements
+        '2xl': 'calc(var(--radius) + 8px)',
+      },
+      boxShadow: { // Added more shadow options for Rivent's card style
+        'soft': '0 4px 15px rgba(0, 0, 0, 0.05)',
+        'medium': '0 8px 30px rgba(0, 0, 0, 0.1)',
+        'hard': '0 12px 40px rgba(0, 0, 0, 0.15)',
       },
       keyframes: {
         'accordion-down': {
